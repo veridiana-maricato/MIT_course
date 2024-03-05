@@ -69,9 +69,8 @@ def get_guessed_word(secret_word, letters_guessed):
     correct_letters = []
     not_guessed = []
     chances = 6
-    non_repeated_guesses = list(set(letters_guessed))
 
-    for char in non_repeated_guesses:
+    for char in letters_guessed:
         if not char in secret_word:
             chances -= 1            
 
@@ -110,52 +109,40 @@ def get_available_letters(letters_guessed):
 
     return letters_remained
 
-
-
-def restart_game(user_name):
+def restart_game():
   answer = input("Do you want to play again? Type 'yes'or 'no': ")
   if answer == "yes":
       welcome_to_game()
   elif answer == "no":
-      print(f"See you next time, {user_name}!")
+      print("See you next time!")
       return True
   else:
       print("I don't understand... Please type yes or no.")
-      restart_game(user_name)
+      restart_game()
       
 def welcome_to_game():
     letters_guessed = []
     wrong_guesses = []   
+    abc ="abcdefghijklmnopqrstuvwxyz" 
     secret_word = choose_word(wordlist)
     print("______________________WELCOME TO HANGMAN GAME______________________")
     time.sleep(1)
     user_name = input("How would you like to be called? ")
     time.sleep(1)
     print(f"Very well, dear {user_name}, shall we get started? First of all, if you want to quit the game, just type the word 'quit' and hit enter.")
-    time.sleep(1)
+    time.sleep(2)
     print("Only type one letter at a time. No numbers allowed! And if you want to know which letters you have left, type the word 'letters' and hit enter.")
-    time.sleep(1)
+    time.sleep(2)
     print("LET THE GAME BEGIN!")
     print("........*........*........*........*........*........*........*........")
 
-    hangman(letters_guessed, wrong_guesses, secret_word, user_name)
+    hangman(letters_guessed, wrong_guesses, secret_word, user_name, abc)
 
-def hangman(letters_guessed, wrong_guesses, secret_word, user_name):   
+def hangman(letters_guessed=[], wrong_guesses=0, secret_word='', user_name='', abc=''):
+    
 
     letter_guessed = input("Make a guess: ")
     def verify_input(input):
-        if input == "letters":
-            print("______________________________________________")
-            print("Here is a list of letters you still haven't tried:")
-            print(get_available_letters(letters_guessed))
-            print("______________________________________________")
-            return True
-        
-        if input == "quit":
-            print(f"See you next time, {user_name}")
-            time.sleep(1)
-            exit()
-            
         if len(input) != 1 or not isinstance(input, str) or input not in abc:
             return False
         return True
@@ -163,12 +150,11 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name):
     is_input_correct = verify_input(letter_guessed)
 
     while not is_input_correct:
-        print("!!!!!!!....................!!!!!!!!....................!!!!!!!!")
         print("You should only write letters and one at a time.")
         letter_guessed = input("Make a guess: ")
         is_input_correct = verify_input(letter_guessed)
    
-    if not letter_guessed in secret_word and not letter_guessed in wrong_guesses and letter_guessed != "letters":
+    if not letter_guessed in secret_word:
         wrong_guesses.append(letter_guessed)
 
     letters_guessed.append(letter_guessed)
@@ -181,25 +167,23 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name):
 
     if chances == 0:       
         print("Oh no! You lost... Better luck next time.")
-        print(f"The word we were looking for was: {secret_word.upper()}")
-        restart_game(user_name)
+        print(f"The word we were looking for was: {secret_word}")
+        restart_game()
 
         return True
 
     if chances>0:
+        print(type(chances), chances)
         if not "_" in partial_word:
-            print(f"Congratulations, {user_name}! You won the game!")
-            restart_game(user_name)
+            print("Congratulations! You won the game!")
+            restart_game()
             return True
         else:
-            hangman(letters_guessed, wrong_guesses, secret_word, user_name)
+            hangman()
 
 
 
 if __name__ == "__main__":
-    letters_guessed = []
-    wrong_guesses = []   
-    abc ="abcdefghijklmnopqrstuvwxyz" 
   
     
     welcome_to_game()

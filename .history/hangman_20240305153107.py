@@ -112,16 +112,16 @@ def get_available_letters(letters_guessed):
 
 
 
-def restart_game(user_name):
+def restart_game():
   answer = input("Do you want to play again? Type 'yes'or 'no': ")
   if answer == "yes":
       welcome_to_game()
   elif answer == "no":
-      print(f"See you next time, {user_name}!")
+      print("See you next time!")
       return True
   else:
       print("I don't understand... Please type yes or no.")
-      restart_game(user_name)
+      restart_game()
       
 def welcome_to_game():
     letters_guessed = []
@@ -138,9 +138,10 @@ def welcome_to_game():
     print("LET THE GAME BEGIN!")
     print("........*........*........*........*........*........*........*........")
 
-    hangman(letters_guessed, wrong_guesses, secret_word, user_name)
+    hangman(letters_guessed, wrong_guesses, secret_word)
 
-def hangman(letters_guessed, wrong_guesses, secret_word, user_name):   
+def hangman(letters_guessed, wrong_guesses, secret_word):
+    
 
     letter_guessed = input("Make a guess: ")
     def verify_input(input):
@@ -150,11 +151,6 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name):
             print(get_available_letters(letters_guessed))
             print("______________________________________________")
             return True
-        
-        if input == "quit":
-            print(f"See you next time, {user_name}")
-            time.sleep(1)
-            exit()
             
         if len(input) != 1 or not isinstance(input, str) or input not in abc:
             return False
@@ -168,7 +164,7 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name):
         letter_guessed = input("Make a guess: ")
         is_input_correct = verify_input(letter_guessed)
    
-    if not letter_guessed in secret_word and not letter_guessed in wrong_guesses and letter_guessed != "letters":
+    if not letter_guessed in secret_word and not letter_guessed in wrong_guesses:
         wrong_guesses.append(letter_guessed)
 
     letters_guessed.append(letter_guessed)
@@ -182,17 +178,17 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name):
     if chances == 0:       
         print("Oh no! You lost... Better luck next time.")
         print(f"The word we were looking for was: {secret_word.upper()}")
-        restart_game(user_name)
+        restart_game()
 
         return True
 
     if chances>0:
         if not "_" in partial_word:
-            print(f"Congratulations, {user_name}! You won the game!")
-            restart_game(user_name)
+            print("Congratulations! You won the game!")
+            restart_game()
             return True
         else:
-            hangman(letters_guessed, wrong_guesses, secret_word, user_name)
+            hangman(letters_guessed, wrong_guesses, secret_word)
 
 
 

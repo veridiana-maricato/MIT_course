@@ -168,7 +168,7 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name):
         letter_guessed = input("Make a guess: ")
         is_input_correct = verify_input(letter_guessed)
    
-    if not letter_guessed in secret_word and not letter_guessed in wrong_guesses and letter_guessed != "letters":
+    if not letter_guessed in secret_word and not letter_guessed in wrong_guesses:
         wrong_guesses.append(letter_guessed)
 
     letters_guessed.append(letter_guessed)
@@ -188,7 +188,7 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name):
 
     if chances>0:
         if not "_" in partial_word:
-            print(f"Congratulations, {user_name}! You won the game!")
+            print(g"Congratulations, {user_name}! You won the game!")
             restart_game(user_name)
             return True
         else:
