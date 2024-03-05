@@ -165,7 +165,7 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name, guesses):
     print(partial_word)    
     if chances == 1:
         print(f"You have {chances} guess remaining.")
-    else:
+    else
         print(f"You have {chances} guesses remaining.")
     print("______________________________________________")
 

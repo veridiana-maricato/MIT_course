@@ -58,7 +58,7 @@ def is_word_guessed(secret_word, letters_guessed):
         
         
 
-def get_guessed_word(secret_word, letters_guessed, guesses):
+def get_guessed_word(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing
     letters_guessed: list (of letters), which letters have been guessed so far
@@ -68,7 +68,7 @@ def get_guessed_word(secret_word, letters_guessed, guesses):
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     correct_letters = []
     not_guessed = []
-    chances = int(guesses)
+    chances = 6
     non_repeated_guesses = list(set(letters_guessed))
 
     for char in non_repeated_guesses:
@@ -120,21 +120,8 @@ def restart_game(user_name):
       print(f"See you next time, {user_name}!")
       return True
   else:
-      print("I don't understand... Please type yes or no. ")
+      print("I don't understand... Please type yes or no.")
       restart_game(user_name)
-
-def verify_num_input(guesses):
-    if not guesses.isnumeric():
-        guesses = input("Please enter a number using only numerical digits, dear: ")
-        verify_num_input(guesses)
-
-    if guesses.isnumeric() and int(guesses) > 16:
-        guesses = input(f"Oh wow, I think {guesses} guesses is a bit much, don't you? How about choosing a number smaller then 15? We don't have that many letters in our ABC... ")
-        verify_num_input(guesses)
-
-    return guesses
-
-
       
 def welcome_to_game():
     letters_guessed = []
@@ -144,8 +131,6 @@ def welcome_to_game():
     time.sleep(1)
     user_name = input("How would you like to be called? ")
     time.sleep(1)
-    input_guesses = input(f"How many guesses would you like to start with, dear {user_name}? Our recommendation is 6. ")
-    guesses = verify_num_input(input_guesses)
     print(f"Very well, dear {user_name}, shall we get started? First of all, if you want to quit the game, just type the word 'quit' and hit enter.")
     time.sleep(1)
     print("Only type one letter at a time. No numbers allowed! And if you want to know which letters you have left, type the word 'letters' and hit enter.")
@@ -153,21 +138,15 @@ def welcome_to_game():
     print("LET THE GAME BEGIN!")
     print("........*........*........*........*........*........*........*........")
 
-    hangman(letters_guessed, wrong_guesses, secret_word, user_name, guesses)
+    hangman(letters_guessed, wrong_guesses, secret_word, user_name)
 
-def hangman(letters_guessed, wrong_guesses, secret_word, user_name, guesses):   
+def hangman(letters_guessed, wrong_guesses, secret_word, user_name):   
 
-    partial_word, chances = get_guessed_word(secret_word, letters_guessed, guesses)
-    if len(wrong_guesses) > 0:
-        print("Letters guessed incorrectly:")
-        print(wrong_guesses)
+    partial_word, chances = get_guessed_word(secret_word, letters_guessed)
+    print(wrong_guesses)
+    print(partial_word)
     print("The number of letters in the secret word is: ", len(secret_word))
-    print(partial_word)    
-    if chances == 1:
-        print(f"You have {chances} guess remaining.")
-    else:
-        print(f"You have {chances} guesses remaining.")
-    print("______________________________________________")
+    print(f"You have {chances} guesses remaining.")
 
     letter_guessed = input("Make a guess: ")
     def verify_input(input):
@@ -213,7 +192,7 @@ def hangman(letters_guessed, wrong_guesses, secret_word, user_name, guesses):
             restart_game(user_name)
             return True
         else:
-            hangman(letters_guessed, wrong_guesses, secret_word, user_name, guesses)
+            hangman(letters_guessed, wrong_guesses, secret_word, user_name)
 
 
 

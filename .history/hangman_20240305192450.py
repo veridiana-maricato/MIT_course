@@ -58,7 +58,7 @@ def is_word_guessed(secret_word, letters_guessed):
         
         
 
-def get_guessed_word(secret_word, letters_guessed, guesses):
+def get_guessed_word(secret_word, letters_guessed):
     '''
     secret_word: string, the word the user is guessing
     letters_guessed: list (of letters), which letters have been guessed so far
@@ -68,7 +68,7 @@ def get_guessed_word(secret_word, letters_guessed, guesses):
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     correct_letters = []
     not_guessed = []
-    chances = int(guesses)
+    chances = 6
     non_repeated_guesses = list(set(letters_guessed))
 
     for char in non_repeated_guesses:
@@ -144,7 +144,7 @@ def welcome_to_game():
     time.sleep(1)
     user_name = input("How would you like to be called? ")
     time.sleep(1)
-    input_guesses = input(f"How many guesses would you like to start with, dear {user_name}? Our recommendation is 6. ")
+    input_guesses = input(f"How many guesses would you like to start with, dear {user_name}? Our recommendation is 6.")
     guesses = verify_num_input(input_guesses)
     print(f"Very well, dear {user_name}, shall we get started? First of all, if you want to quit the game, just type the word 'quit' and hit enter.")
     time.sleep(1)
@@ -157,16 +157,13 @@ def welcome_to_game():
 
 def hangman(letters_guessed, wrong_guesses, secret_word, user_name, guesses):   
 
-    partial_word, chances = get_guessed_word(secret_word, letters_guessed, guesses)
+    partial_word, chances = get_guessed_word(secret_word, letters_guessed)
     if len(wrong_guesses) > 0:
         print("Letters guessed incorrectly:")
         print(wrong_guesses)
     print("The number of letters in the secret word is: ", len(secret_word))
     print(partial_word)    
-    if chances == 1:
-        print(f"You have {chances} guess remaining.")
-    else:
-        print(f"You have {chances} guesses remaining.")
+    print(f"You have {chances} guesses remaining.")
     print("______________________________________________")
 
     letter_guessed = input("Make a guess: ")
