@@ -6,8 +6,8 @@ total_months = 36
 portion_down_payment = 0.25*total_cost
 
 portion_saved = 0.5
-heighest = 1
-prev_heighest = heighest
+highest = 1
+prev_highest = highest
 lowest = 0 
 prev_lowest = lowest
 guessed = False
@@ -29,7 +29,7 @@ def earn_monthly_money():
 
 while not guessed:
     earn_monthly_money()
-    portion_saved = round(((heighest + lowest) / 2), 6)
+    portion_saved = round(((highest + lowest) / 2), 6)
 
 
     if(current_savings < portion_down_payment - 100):     
@@ -37,21 +37,21 @@ while not guessed:
 
         print(int(current_savings), "current savings up")        
         print("lowest:", lowest)
-        print("heighest:", heighest)
+        print("highest:", highest)
         print("portion_saved:", portion_saved)
         print("-------------------------------")
 
     elif(current_savings > portion_down_payment + 100):      
-        heighest = portion_saved
+        highest = portion_saved
         
         print(int(current_savings), "current savings down")
         print("lowest:", lowest)
         
-        print("heighest:", heighest)
+        print("highest:", highest)
         print("portion_saved:", portion_saved)
         print("-------------------------------")
 
-    portion_saved = (heighest + lowest)/2
+    portion_saved = (highest + lowest)/2
 
     number_of_tries += 1
     print(portion_saved)
