@@ -1,12 +1,13 @@
 import time
 
 def welcome_user():
-    print("Hello, hello! Welcome to GUESS YOUR NUMBER IN LESS THEN NINE QUESTIONS GAME. Terrible name, I know, still working on that.")
+    print("Hello, hello! Welcome to GUESS YOUR NUMBER IN LESS THEN NINE YES OR NO QUESTIONS GAME. Terrible name, I know, still working on that.")
     time.sleep(1)
     user_name = input("What is your name, dear? ")
-    print(f"{user_name}, how lovely. Ready to play Lets go...")
+    print("_____________________________________________")
+    print(f"{user_name}, how lovely. Ready to play? Lets go...")
     time.sleep(1)
-    print("The rules are very basic. Choose a number between 0 and 100. Right your number down, or memorize it, or tell it to someone (I really don't care). If I don't guess your exact number in less then nine questions, you win. If I do, I win and you'll buy me a beer. Sorry, bad joke. Anyway...")
+    print("The rules are very basic. Choose a number between 0 and 100. Write your number down, or memorize it, or tell it to someone (I really don't care). If I don't guess your exact number in less then nine yes or no questions, you win. If I do, I win and you buy me a beer. Sorry, bad joke. Anyway...")
     print("LET THE GAME BEGIN")
     print("_____________________________________________")
 
@@ -44,7 +45,7 @@ def ask_questions(guessed, highest, lowest, number_of_tries):
     number_of_tries += 1
     guessed = is_game_over(guessed, highest, lowest)
 
-    ans = input(f"Question number {number_of_tries}: is the number between {(highest + lowest)/ 2} and {highest}, including {(highest + lowest)/ 2}? Type 'yes' or 'no'. ")
+    ans = input(f"Question number {number_of_tries}: is the number between {int((highest + lowest)/ 2)} and {highest}, including {int((highest + lowest)/ 2)}? Type 'yes' or 'no'. ")
     clean_ans = verify_yes_or_no(ans)
     if clean_ans == "yes":
         lowest = int((highest + lowest) / 2)
