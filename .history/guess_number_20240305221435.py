@@ -60,7 +60,7 @@ if __name__ == "__main__":
     lowest = 0
     guessed = False
     number_of_tries = 0
-    welcome_user()
+    welcome()
     ask_questions(guessed, highest, lowest, number_of_tries)
 
 
